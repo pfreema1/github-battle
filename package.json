@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "create": "webpack"
+    "start": "webpack-dev-server --open"
   },
   "repository": {
     "type": "git",
@@ -12,11 +12,18 @@
   },
   "author": "",
   "license": "ISC",
+  "babel": {
+    "presets": [
+      "env",
+      "react"
+    ]
+  },
   "bugs": {
     "url": "https://github.com/pfreema1/github-battle/issues"
   },
   "homepage": "https://github.com/pfreema1/github-battle#readme",
   "dependencies": {
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },
