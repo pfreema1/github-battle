@@ -1,9 +1,22 @@
+// this is only here for TS - it lets the compiler know that
+// this file should be treated as a module  
+export {};  
+
 const React = require("react");
 const PropTypes = require("prop-types");
 const Link = require("react-router-dom").Link;
 
+//is this doing anything?**************************
+interface PlayerPreviewProps {
+  avatar: string,
+  username: string,
+  id: string,
+  onReset(id: string): void 
+}
 
-function PlayerPreview(props) {
+
+
+function PlayerPreview(props: PlayerPreviewProps) {
   return (
     <div>
       <div className="column">
@@ -27,17 +40,23 @@ function PlayerPreview(props) {
 
 }
 
-PlayerPreview.propTypes = {
-  avatar: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired
+
+
+//not doing anything?**************************
+
+interface PlayerInputProps {
+  id: string,
+  label: string,
+  onSubmit(id: string, username: string): void
+}
+
+interface PlayerInputState {
+  username: string 
 }
 
 
 
-
-class PlayerInput extends React.Component {
+class PlayerInput extends React.Component<PlayerInputProps, PlayerInputState> {
 
   constructor(props) {
     super(props);
@@ -95,11 +114,7 @@ class PlayerInput extends React.Component {
   }
 }
 
-PlayerInput.propTypes = {
-  id: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired
-}
+
 
 
 

@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/pfreema1/github-battle#readme",
   "dependencies": {
+    "@types/react": "^16.0.35",
+    "@types/react-dom": "^16.0.3",
     "axios": "^0.17.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
@@ -30,13 +32,16 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.9",
     "html-webpack-plugin": "^2.30.1",
+    "source-map-loader": "^0.2.3",
     "style-loader": "^0.19.1",
+    "typescript": "^2.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.11.1"
   }
