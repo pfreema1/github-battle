@@ -1,20 +1,12 @@
-// this is only here for TS - it lets the compiler know that
-// this file should be treated as a module  
-export {};  
+import * as React from "react";
+import { Link } from "react-router-dom";
 
-const React = require("react");
-const PropTypes = require("prop-types");
-const Link = require("react-router-dom").Link;
-
-//is this doing anything?**************************
 interface PlayerPreviewProps {
-  avatar: string,
-  username: string,
-  id: string,
-  onReset(id: string): void 
+  avatar: string;
+  username: string;
+  id: string;
+  onReset(id: string): void;
 }
-
-
 
 function PlayerPreview(props: PlayerPreviewProps) {
   return (
@@ -26,39 +18,26 @@ function PlayerPreview(props: PlayerPreviewProps) {
           alt={"Avatar for " + props.username}
         />
         <h2 className="username">@{props.username}</h2>
-
       </div>
-      <button 
-        className="reset"
-        onClick={props.onReset.bind(null, props.id)}>
+      <button className="reset" onClick={props.onReset.bind(null, props.id)}>
         Reset
       </button>
-      
-        
     </div>
   );
-
 }
 
-
-
-//not doing anything?**************************
-
 interface PlayerInputProps {
-  id: string,
-  label: string,
-  onSubmit(id: string, username: string): void
+  id: string;
+  label: string;
+  onSubmit(id: string, username: string): void;
 }
 
 interface PlayerInputState {
-  username: string 
+  username: string;
 }
 
-
-
 class PlayerInput extends React.Component<PlayerInputProps, PlayerInputState> {
-
-  constructor(props) {
+  constructor(props: PlayerInputProps) {
     super(props);
 
     this.state = {
@@ -69,8 +48,8 @@ class PlayerInput extends React.Component<PlayerInputProps, PlayerInputState> {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    let value = event.target.value;
+  handleChange(event: React.FormEvent<HTMLInputElement>) {
+    let value = (event.target as HTMLInputElement).value;
 
     this.setState(function() {
       return {
@@ -79,13 +58,10 @@ class PlayerInput extends React.Component<PlayerInputProps, PlayerInputState> {
     });
   }
 
-  handleSubmit(event) {
+  handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    this.props.onSubmit(
-      this.props.id,
-      this.state.username
-    );
+    this.props.onSubmit(this.props.id, this.state.username);
   }
 
   render() {
@@ -102,50 +78,61 @@ class PlayerInput extends React.Component<PlayerInputProps, PlayerInputState> {
           value={this.state.username}
           onChange={this.handleChange}
         />
-        <button 
+        <button
           className="button"
           type="submit"
-          disabled={!this.state.username}>
+          disabled={!this.state.username}
+        >
           Submit
         </button>
-
       </form>
     );
   }
 }
 
+interface BattleProps {
+  match: object;
+  // match[url]: string;
+}
 
+interface MatchObj {
+  [index: string]: string;
+}
 
+interface BattleState {
+  playerOneName: string;
+  playerTwoName: string;
+  playerOneImage: string;
+  playerTwoImage: string;
+}
 
-
-
-class Battle extends React.Component {
-
-  constructor(props) {
+class Battle extends React.Component<BattleProps, BattleState> {
+  constructor(props: BattleProps) {
     super(props);
 
     this.state = {
       playerOneName: "",
-      playerTwoName:  "",
-      playerOneImage: null,
-      playerTwoImage: null,
+      playerTwoName: "",
+      playerOneImage: "",
+      playerTwoImage: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleReset = this.handleReset.bind(this);
   }
 
-  handleSubmit(id, username) {
-    this.setState(function () {
+  handleSubmit(id: string, username: string) {
+    this.setState(function() {
       let newState = {};
       newState[id + "Name"] = username;
-      newState[id + "Image"] = "https://github.com/" + username + ".png?size=200";
+      newState[id + "Image"] =
+        "https://github.com/" + username + ".png?size=200";
 
       return newState;
     });
   }
 
-  handleReset(id) {
+  handleReset(id: string) {
     this.setState(function() {
       let newState = {};
       newState[id + "Name"] = "";
@@ -156,60 +143,69 @@ class Battle extends React.Component {
   }
 
   render() {
-
-    let match = this.props.match;
-    let playerOneName = this.state.playerOneName;
-    let playerTwoName = this.state.playerTwoName;
-    let playerOneImage = this.state.playerOneImage;
-    let playerTwoImage = this.state.playerTwoImage;
+    const match: MatchObj = this.props.match as MatchObj;
+    const playerOneName: string = this.state.playerOneName;
+    const playerTwoName: string = this.state.playerTwoName;
+    const playerOneImage: string = this.state.playerOneImage;
+    const playerTwoImage: string = this.state.playerTwoImage;
 
     return (
       <div>
         <div className="row">
-          {!playerOneName &&
-            <PlayerInput 
+          {!playerOneName && (
+            <PlayerInput
               id="playerOne"
               label="Player Two"
               onSubmit={this.handleSubmit}
-          />}
+            />
+          )}
 
-          {playerOneImage !== null && 
+          {playerOneImage !== "" && (
             <PlayerPreview
               avatar={playerOneImage}
               username={playerOneName}
               onReset={this.handleReset}
-              id="playerOne"  
-            />}
+              id="playerOne"
+            />
+          )}
 
-          {!playerTwoName &&
-            <PlayerInput 
+          {!playerTwoName && (
+            <PlayerInput
               id="playerTwo"
               label="Player Two"
               onSubmit={this.handleSubmit}
-          />}
+            />
+          )}
 
-          {playerTwoImage !== null && 
+          {playerTwoImage !== "" && (
             <PlayerPreview
               avatar={playerTwoImage}
               username={playerTwoName}
               onReset={this.handleReset}
-              id="playerTwo"  
-          />}
-
+              id="playerTwo"
+            />
+          )}
         </div>
 
-        {playerOneImage && playerTwoImage &&
-          <Link
-            className="button"
-            to={{
-              pathname: match.url + "/results",
-              search: `?playerOneName=` + playerOneName + "&playerTwoName=" + playerTwoName
-            }}>
-            Battle
-          </Link>}
+        {playerOneImage &&
+          playerTwoImage && (
+            <Link
+              className="button"
+              to={{
+                pathname: match.url + "/results",
+                search:
+                  `?playerOneName=` +
+                  playerOneName +
+                  "&playerTwoName=" +
+                  playerTwoName
+              }}
+            >
+              Battle
+            </Link>
+          )}
       </div>
     );
   }
 }
 
-module.exports = Battle;
+export default Battle;

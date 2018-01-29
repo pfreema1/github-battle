@@ -1,13 +1,10 @@
-const React = require("react");
+import React from "react";
 
 class Results extends React.Component {
-
   render() {
     console.log(this.props);
-    return (
-      <div>results</div>
-    );
+    return <div>results</div>;
   }
 }
 
-module.exports = Results;
+export default Results;

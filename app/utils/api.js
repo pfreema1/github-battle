@@ -1,26 +1,29 @@
-
-
 // let id = "YOUR_CLIENT_ID";
 // let sec = "YOUR_SECRED_ID";
 // let params = "?client_id=" + id + "&client_secred=" + sec;
 let params = "";
 
-
 function getProfile(username) {
-  return fetch(("https://api.github.com/users/" + username + params), {
+  return fetch("https://api.github.com/users/" + username + params, {
     method: "get",
     mode: "cors"
   }).then(user => {
     return user.data;
   });
-
 }
 
 function getRepos(username) {
-  return fetch(("https://api.github.com/users/" + username + "/repos" +  params + "&per_page=100"), {
-    method: "get",
-    mode: "cors"
-  });
+  return fetch(
+    "https://api.github.com/users/" +
+      username +
+      "/repos" +
+      params +
+      "&per_page=100",
+    {
+      method: "get",
+      mode: "cors"
+    }
+  );
 }
 
 function getStarCount(repos) {
@@ -33,7 +36,7 @@ function calculateScore(profile, repos) {
   let followers = profile.followers;
   let totalStars = getStarCount(repos);
 
-  return (followers * 3) + totalStars;
+  return followers * 3 + totalStars;
 }
 
 function handleError(error) {
@@ -42,10 +45,7 @@ function handleError(error) {
 }
 
 function getUserData(player) {
-  return Promise.all([
-    getProfile(player),
-    getRepos(player)
-  ]).then((data) => {
+  return Promise.all([getProfile(player), getRepos(player)]).then(data => {
     let profile = data[0];
     let repos = data[1];
 
@@ -57,33 +57,38 @@ function getUserData(player) {
 }
 
 function sortPlayers(players) {
-  return players.sort((a,b) => {
+  return players.sort((a, b) => {
     return b.score - a.score;
   });
 }
 
-
-
-module.exports = {
-
+let api = {
   battle: function(players) {
     return Promise.all(players.map(getUserData))
       .then(sortPlayers)
       .catch(handleError);
   },
 
-  fetchPopularRepos: (language) => {
-    let encodedURI = window.encodeURI('https://api.github.com/search/repositories?q=stars:>1+language:'+ language + '&sort=stars&order=desc&type=Repositories');
+  fetchPopularRepos: language => {
+    let encodedURI = window.encodeURI(
+      "https://api.github.com/search/repositories?q=stars:>1+language:" +
+        language +
+        "&sort=stars&order=desc&type=Repositories"
+    );
 
     return fetch(encodedURI, {
       method: "get",
       mode: "cors"
-    }).then((res) => {
-      // console.log(res);
-      return res.json();
-    }).then((res) => {
-      // console.log(res);
-      return res.items;
-    });
+    })
+      .then(res => {
+        // console.log(res);
+        return res.json();
+      })
+      .then(res => {
+        // console.log(res);
+        return res.items;
+      });
   }
-}
+};
+
+export default api;
