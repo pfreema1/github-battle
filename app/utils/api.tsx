@@ -38,8 +38,8 @@ interface ReposObject {
   stargazers_count: number;
 }
 
-function getStarCount(repos: ReposObject): number {
-  return repos.data.reduce((prevVal: number, elem: object) => {
+function getStarCount(repos: ReposObject[]): number {
+  return repos.reduce((prevVal: number, elem: object) => {
     return prevVal + (elem as ReposObject).stargazers_count;
   }, 0);
 }
@@ -48,7 +48,7 @@ interface ProfileObject {
   followers: number;
 }
 
-function calculateScore(profile: ProfileObject, repos: ReposObject): number {
+function calculateScore(profile: ProfileObject, repos: ReposObject[]): number {
   let followers: number = profile.followers;
   let totalStars: number = getStarCount(repos);
 
