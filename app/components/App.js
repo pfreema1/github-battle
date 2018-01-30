@@ -1,14 +1,3 @@
-// const React = require("react");
-// const Popular = require("./Popular");
-// const ReactRouter = require("react-router-dom");
-// const Router = ReactRouter.BrowserRouter;
-// const Route = ReactRouter.Route;
-// const Nav = require("./Nav");
-// const Home = require("./Home");
-// const Battle = require("./Battle");
-// const Switch = ReactRouter.Switch;
-// const Results = require("./Results");
-
 import React from "react";
 import Popular from "./Popular";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
