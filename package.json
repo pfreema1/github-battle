@@ -33,6 +33,7 @@
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
+    "@types/es6-promise": "^3.3.0",
     "awesome-typescript-loader": "^3.4.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",

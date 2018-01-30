@@ -136,7 +136,7 @@ class Battle extends React.Component<BattleProps, BattleState> {
     this.setState(function() {
       let newState = {};
       newState[id + "Name"] = "";
-      newState[id + "Image"] = null;
+      newState[id + "Image"] = "";
 
       return newState;
     });

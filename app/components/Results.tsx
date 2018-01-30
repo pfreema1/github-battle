@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 
 class Results extends React.Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return <div>results</div>;
   }
 }
