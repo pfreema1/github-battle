@@ -1,26 +1,36 @@
-let params: string = "";
+import { default as keys } from "../utils/keys";
 
-function getProfile(username: PlayerObject): Promise<any> {
+const id = keys.id;
+const sec = keys.sec;
+const params = "?client_id=" + id + "&client_secret=" + sec;
+// const params = "";
+
+function getProfile(username: string): Promise<any> {
   return fetch("https://api.github.com/users/" + username + params, {
     method: "get",
     mode: "cors"
-  }).then((user: any) => {
-    return user.data;
-  });
+  })
+    .then(res => {
+      return res.json();
+    })
+    .then(res => {
+      // console.log("from getProfile:  ", res);
+      return res;
+    });
 }
 
-function getRepos(username: PlayerObject): Promise<any> {
-  return fetch(
-    "https://api.github.com/users/" +
-      username +
-      "/repos" +
-      params +
-      "&per_page=100",
-    {
-      method: "get",
-      mode: "cors"
-    }
-  );
+function getRepos(username: string): Promise<any> {
+  return fetch("https://api.github.com/users/" + username + "/repos" + params, {
+    method: "get",
+    mode: "cors"
+  })
+    .then(res => {
+      return res.json();
+    })
+    .then(res => {
+      console.log("****from getRepos:  ", res);
+      return res;
+    });
 }
 
 interface ReposObject {
@@ -54,9 +64,10 @@ interface UserData {
   [index: number]: ProfileObject | ReposObject;
 }
 
-function getUserData(player: PlayerObject): Promise<object> {
+function getUserData(player: string): Promise<object> {
   return Promise.all([getProfile(player), getRepos(player)]).then(
     (data: UserData) => {
+      console.log("in getUserData:  ", data);
       let profile = data[0];
       let repos = data[1];
 
@@ -78,8 +89,8 @@ function sortPlayers(players: PlayerObject[]): PlayerObject[] {
   });
 }
 
-let api = {
-  battle: function(players: PlayerObject[]) {
+const api = {
+  battle: function(players: string[]): Promise<any> {
     return Promise.all(players.map(getUserData))
       .then(sortPlayers)
       .catch(handleError);

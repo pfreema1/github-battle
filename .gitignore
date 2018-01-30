@@ -42,3 +42,6 @@ dwsync.xml
 package-lock.json
 
 dist
+
+keys.tsx
+keys.js

@@ -23,11 +23,13 @@
   },
   "homepage": "https://github.com/pfreema1/github-battle#readme",
   "dependencies": {
+    "@types/query-string": "^5.0.1",
     "@types/react": "^16.0.35",
     "@types/react-dom": "^16.0.3",
     "@types/react-router-dom": "^4.2.3",
     "axios": "^0.17.1",
     "prop-types": "^15.6.0",
+    "query-string": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2"
