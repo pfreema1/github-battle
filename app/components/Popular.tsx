@@ -1,5 +1,6 @@
 import * as React from "react";
 import api from "../utils/api";
+import Loading from "./Loading";
 
 interface SelectLanguageProps {
   selectedLanguage: string;
@@ -118,7 +119,7 @@ class Popular extends React.Component<PopularProps, PopularState> {
         {this.state.repos ? (
           <RepoGrid repos={this.state.repos as RepoObject[]} />
         ) : (
-          <p>LOADING</p>
+          <Loading text="Loading" />
         )}
       </div>
     );

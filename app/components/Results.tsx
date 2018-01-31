@@ -4,6 +4,7 @@ import { default as api } from "../utils/api";
 import { Link } from "react-router-dom";
 import PlayerPreview from "./PlayerPreview";
 import Profile from "./Profile";
+import Loading from "./Loading";
 
 interface PlayerProps {
   label: string;
@@ -86,7 +87,7 @@ class Results extends React.Component<ResultsProps, ResultsState> {
     const loading = this.state.loading;
 
     if (loading) {
-      return <p>Loading</p>;
+      return <Loading text="Loading" />;
     }
 
     if (error) {
