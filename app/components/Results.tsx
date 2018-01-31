@@ -12,6 +12,11 @@ interface PlayerProps {
   profile: object;
 }
 
+interface ProfileObj {
+  avatar_url: string;
+  login: string;
+}
+
 function Player(props: PlayerProps) {
   return (
     <div>

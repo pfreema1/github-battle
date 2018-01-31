@@ -16,6 +16,7 @@ interface LoadingState {
 }
 
 class Loading extends React.Component<LoadingProps, LoadingState> {
+  interval: number;
   constructor(props: LoadingProps) {
     super(props);
 
