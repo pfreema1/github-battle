@@ -3,6 +3,7 @@ import * as queryString from "query-string";
 import { default as api } from "../utils/api";
 import { Link } from "react-router-dom";
 import PlayerPreview from "./PlayerPreview";
+import Profile from "./Profile";
 
 interface PlayerProps {
   label: string;
@@ -15,6 +16,12 @@ function Player(props: PlayerProps) {
     <div>
       <h1 className="header">{props.label}</h1>
       <h3 style={{ textAlign: "center" }}>Score: {props.score}</h3>
+      <PlayerPreview
+        avatar={(props.profile as ProfileObj).avatar_url}
+        username={(props.profile as ProfileObj).login}
+      >
+        <Profile {...props} />
+      </PlayerPreview>
     </div>
   );
 }
@@ -92,9 +99,15 @@ class Results extends React.Component<ResultsProps, ResultsState> {
     }
 
     return (
-      <div className="row">
-        <Player label="Winner" score={winner.score} profile={winner.profile} />
-        <Player label="Loser" score={loser.score} profile={loser.profile} />
+      <div>
+        <div className="row">
+          <Player
+            label="Winner"
+            score={winner.score}
+            profile={winner.profile}
+          />
+          <Player label="Loser" score={loser.score} profile={loser.profile} />
+        </div>
       </div>
     );
   }

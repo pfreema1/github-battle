@@ -3,7 +3,7 @@ import * as React from "react";
 interface PlayerPreviewProps {
   avatar: string;
   username: string;
-  children: any;
+  children?: any;
 }
 
 function PlayerPreview(props: PlayerPreviewProps) {
