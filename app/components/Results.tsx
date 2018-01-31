@@ -2,6 +2,7 @@ import * as React from "react";
 import * as queryString from "query-string";
 import { default as api } from "../utils/api";
 import { Link } from "react-router-dom";
+import PlayerPreview from "./PlayerPreview";
 
 interface PlayerProps {
   label: string;

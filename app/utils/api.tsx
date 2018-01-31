@@ -3,7 +3,6 @@ import { default as keys } from "../utils/keys";
 const id = keys.id;
 const sec = keys.sec;
 const params = "?client_id=" + id + "&client_secret=" + sec;
-// const params = "";
 
 function getProfile(username: string): Promise<any> {
   return fetch("https://api.github.com/users/" + username + params, {
